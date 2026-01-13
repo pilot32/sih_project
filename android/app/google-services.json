@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747384689964",
+    "project_id": "edutivflutter",
+    "storage_bucket": "edutivflutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747384689964:android:725ad9fddda70181af0889",
+        "android_client_info": {
+          "package_name": "com.example.digital_learning_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Q1iP2dx7LzZ1t6P60NbcVZcBy_p7PeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
