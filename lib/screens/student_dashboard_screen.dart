@@ -16,7 +16,7 @@ class StudentDashboardScreen extends StatefulWidget {
 
   const StudentDashboardScreen({
     super.key,
-    this.studentName = 'छात्र',
+    this.studentName = 'Student',
     this.onLogout,
     this.onSettings,
   });
@@ -39,8 +39,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   void _initializeData() {
     coreSubjects = [
       SubjectModel(
-        subject: 'हिंदी',
-        subjectHindi: 'Hindi Language',
+        subject: 'Hindi',
         progress: 75,
         totalLessons: 20,
         completedLessons: 15,
@@ -53,8 +52,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         icon: Icons.book_outlined,
       ),
       SubjectModel(
-        subject: 'अंग्रेजी',
-        subjectHindi: 'English Language',
+        subject: 'English',
         progress: 60,
         totalLessons: 18,
         completedLessons: 11,
@@ -67,8 +65,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         icon: Icons.language,
       ),
       SubjectModel(
-        subject: 'गणित',
-        subjectHindi: 'Mathematics',
+        subject: 'Math',
         progress: 45,
         totalLessons: 25,
         completedLessons: 11,
@@ -84,8 +81,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
 
     higherSubjects = [
       SubjectModel(
-        subject: 'विज्ञान',
-        subjectHindi: 'Science',
+        subject: 'Science',
         progress: 0,
         totalLessons: 30,
         completedLessons: 0,
@@ -99,8 +95,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         isLocked: true,
       ),
       SubjectModel(
-        subject: 'सामाजिक विज्ञान',
-        subjectHindi: 'Social Science',
+        subject: 'Social Science',
         progress: 0,
         totalLessons: 22,
         completedLessons: 0,
@@ -114,8 +109,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         isLocked: true,
       ),
       SubjectModel(
-        subject: 'वाणिज्य',
-        subjectHindi: 'Commerce',
+        subject: 'Commerce',
         progress: 0,
         totalLessons: 18,
         completedLessons: 0,
@@ -129,8 +123,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         isLocked: true,
       ),
       SubjectModel(
-        subject: 'कंप्यूटर',
-        subjectHindi: 'Computer Basics',
+        subject: 'Computer',
         progress: 0,
         totalLessons: 15,
         completedLessons: 0,
@@ -225,7 +218,7 @@ SubjectsSection(
     // Navigate to today's lesson
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('आज का पाठ खोला जा रहा है...'),
+        content: Text('Opening Today\'s Lesson...'),
         duration: Duration(seconds: 2),
       ),
     );
@@ -235,7 +228,7 @@ SubjectsSection(
     // Navigate to practice questions
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('अभ्यास प्रश्न खोले जा रहे हैं...'),
+        content: Text('Opening Practice Questions...'),
         duration: Duration(seconds: 2),
       ),
     );
@@ -245,7 +238,7 @@ SubjectsSection(
     // Navigate to rewards page
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('पुरस्कार पृष्ठ खोला जा रहा है...'),
+        content: Text('Opening Rewards Page...'),
         duration: Duration(seconds: 2),
       ),
     );

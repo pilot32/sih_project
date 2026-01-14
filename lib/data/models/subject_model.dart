@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class SubjectModel {
   final String subject;
-  final String subjectHindi;
   final int progress;
   final int totalLessons;
   final int completedLessons;
@@ -14,7 +13,6 @@ class SubjectModel {
 
   const SubjectModel({
     required this.subject,
-    required this.subjectHindi,
     required this.progress,
     required this.totalLessons,
     required this.completedLessons,
@@ -27,7 +25,6 @@ class SubjectModel {
 
   SubjectModel copyWith({
     String? subject,
-    String? subjectHindi,
     int? progress,
     int? totalLessons,
     int? completedLessons,
@@ -39,7 +36,6 @@ class SubjectModel {
   }) {
     return SubjectModel(
       subject: subject ?? this.subject,
-      subjectHindi: subjectHindi ?? this.subjectHindi,
       progress: progress ?? this.progress,
       totalLessons: totalLessons ?? this.totalLessons,
       completedLessons: completedLessons ?? this.completedLessons,

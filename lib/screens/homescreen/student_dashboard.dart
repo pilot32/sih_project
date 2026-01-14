@@ -1,3 +1,4 @@
+import 'package:digital_learning_application/screens/auth/login_page2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -15,7 +16,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
   // Mock data
   final List<Map<String, dynamic>> subjects = [
     {
-      'name': 'हिंदी',
+      'name': 'Hindi',
       'englishName': 'Hindi Language',
       'progress': 75,
       'completed': 15,
@@ -26,7 +27,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       'icon': Icons.menu_book,
     },
     {
-      'name': 'अंग्रेजी',
+      'name': 'English',
       'englishName': 'English Language',
       'progress': 60,
       'completed': 11,
@@ -37,7 +38,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       'icon': Icons.language,
     },
     {
-      'name': 'गणित',
+      'name': 'Math',
       'englishName': 'Mathematics',
       'progress': 45,
       'completed': 11,
@@ -51,7 +52,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
   final List<Map<String, dynamic>> preparationSubjects = [
     {
-      'name': 'विज्ञान',
+      'name': 'Science',
       'englishName': 'Science',
       'progress': 0,
       'completed': 0,
@@ -60,7 +61,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       'icon': Icons.science,
     },
     {
-      'name': 'सामाजिक विज्ञान',
+      'name': 'Social Science',
       'englishName': 'Social Science',
       'progress': 0,
       'completed': 0,
@@ -69,7 +70,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       'icon': Icons.public,
     },
     {
-      'name': 'वाणिज्य',
+      'name': 'Commerce',
       'englishName': 'Commerce',
       'progress': 0,
       'completed': 0,
@@ -78,7 +79,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       'icon': Icons.attach_money,
     },
     {
-      'name': 'कंप्यूटर',
+      'name': 'Computer',
       'englishName': 'Computer Basics',
       'progress': 0,
       'completed': 0,
@@ -93,7 +94,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => LoginPage2(), // Make sure to import this
+        builder: (context) => LoginScreen(), // Make sure to import this
       ),
     );
   }
@@ -116,19 +117,19 @@ class _StudentDashboardState extends State<StudentDashboard> {
               // Header
               _buildHeader(),
               const SizedBox(height: 24),
-              
+
               // Stats Cards
               _buildStatsCards(),
               const SizedBox(height: 32),
-              
+
               // Main Subjects Section
               _buildMainSubjectsSection(),
               const SizedBox(height: 32),
-              
+
               // Preparation Section
               _buildPreparationSection(),
               const SizedBox(height: 32),
-              
+
               // Current Tasks Section
               _buildCurrentTasksSection(),
               const SizedBox(height: 100), // Space for bottom navigation
@@ -158,14 +159,14 @@ class _StudentDashboardState extends State<StudentDashboard> {
           child: Icon(Icons.person, color: Colors.orange, size: 24),
         ),
         const SizedBox(width: 12),
-        
+
         // Greeting
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'नमस्ते, छात्र 771!',
+                'Welcome, Student 771!',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 ),
               ),
               Text(
-                'आज भी कुछ नया सीखते हैं',
+                'Let\'s learn something new today',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -182,7 +183,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ],
           ),
         ),
-        
+
         // Action buttons
         IconButton(
           onPressed: onSettings,
@@ -212,10 +213,10 @@ class _StudentDashboardState extends State<StudentDashboard> {
       ),
       child: Row(
         children: [
-          _buildStatItem('60%', 'कुल प्रगति', Colors.blue),
-          _buildStatItem('15', 'दिन की लकीर', Colors.green),
-          _buildStatItem('127', 'कुल तारे', Colors.orange),
-          _buildStatItem('5', 'बैज अर्जित', Colors.purple),
+          _buildStatItem('60%', 'Total Progress', Colors.blue),
+          _buildStatItem('15', 'Day Streak', Colors.green),
+          _buildStatItem('127', 'Total Stars', Colors.orange),
+          _buildStatItem('5', 'Badges Earned', Colors.purple),
         ],
       ),
     );
@@ -223,14 +224,14 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
   Widget _buildStatItem(String value, String label, Color color) {
     IconData icon;
-    switch (color) {
-      case Colors.green:
+    switch (label) {
+      case 'Day Streak':
         icon = Icons.trending_up;
         break;
-      case Colors.orange:
+      case 'Total Stars':
         icon = Icons.star;
         break;
-      case Colors.purple:
+      case 'Badges Earned':
         icon = Icons.emoji_events;
         break;
       default:
@@ -277,7 +278,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'मुख्य विषय',
+              'Core Subjects',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -291,7 +292,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
-                'सक्रियता पाठ्यक्रम',
+                'Active Curriculum',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
@@ -302,7 +303,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           ],
         ),
         const SizedBox(height: 16),
-        
+
         // Subject cards grid
         GridView.builder(
           shrinkWrap: true,
@@ -336,15 +337,15 @@ class _StudentDashboardState extends State<StudentDashboard> {
             print('Failed to load image: $exception');
           },
         ),
-        
+
         // Fallback color if image doesn't load
         color: subject['color'].withOpacity(0.1),
-        
+
         // Alternative Options (comment out image above to use these):
-        
+
         // Option 1: No background image, just solid color
         // color: subject['color'].withOpacity(0.1),
-        
+
         // Option 2: Gradient background
         // gradient: LinearGradient(
         //   begin: Alignment.topLeft,
@@ -354,10 +355,10 @@ class _StudentDashboardState extends State<StudentDashboard> {
         //     subject['color'].withOpacity(0.05),
         //   ],
         // ),
-        
+
         // Option 3: Custom gradient per subject
         // gradient: _getSubjectGradient(subject['name']),
-        
+
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -398,7 +399,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                     Icon(Icons.access_time, color: Colors.white, size: 12),
                     const SizedBox(width: 4),
                     Text(
-                      '${subject['daysLeft']} दिन',
+                      '${subject['daysLeft']} Days',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -411,7 +412,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ],
           ),
           const SizedBox(height: 12),
-          
+
           // Subject name
           Text(
             subject['name'],
@@ -429,14 +430,14 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Progress section
           Row(
             children: [
               Icon(Icons.menu_book_outlined, size: 16, color: Colors.grey[600]),
               const SizedBox(width: 4),
               Text(
-                '${subject['completed']}/${subject['total']} पाठ',
+                '${subject['completed']}/${subject['total']} Lessons',
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey[600],
@@ -454,7 +455,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ],
           ),
           const SizedBox(height: 8),
-          
+
           // Progress bar
           LinearProgressIndicator(
             value: subject['progress'] / 100,
@@ -463,14 +464,14 @@ class _StudentDashboardState extends State<StudentDashboard> {
             minHeight: 6,
           ),
           const SizedBox(height: 12),
-          
+
           // Time spent and continue button
           Row(
             children: [
               Icon(Icons.schedule, size: 16, color: Colors.grey[600]),
               const SizedBox(width: 4),
               Text(
-                'आगला पाठ: ${subject['timeSpent']} मिनट',
+                'Next Lesson: ${subject['timeSpent']} min',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[600],
@@ -482,7 +483,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                   // Handle continue lesson
                 },
                 child: Text(
-                  'जारी रखें →',
+                  'Continue →',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.blue,
@@ -505,7 +506,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'उच्च शिक्षा के लिए तैयारी',
+              'Higher Education Preparation',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -517,7 +518,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                 // Handle view all
               },
               child: Text(
-                'जल्द ही उपलब्ध',
+                'Coming Soon',
                 style: TextStyle(
                   color: Colors.grey[600],
                   fontSize: 14,
@@ -527,7 +528,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           ],
         ),
         const SizedBox(height: 16),
-        
+
         GridView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
@@ -560,15 +561,15 @@ class _StudentDashboardState extends State<StudentDashboard> {
             print('Failed to load image: $exception');
           },
         ),
-        
+
         // Fallback color if image doesn't load
         color: subject['color'].withOpacity(0.08),
-        
+
         // Alternative Options (comment out image above to use these):
-        
+
         // Option 1: No background image, just solid color
         // color: subject['color'].withOpacity(0.08),
-        
+
         // Option 2: Gradient background
         // gradient: LinearGradient(
         //   begin: Alignment.topLeft,
@@ -578,7 +579,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
         //     subject['color'].withOpacity(0.03),
         //   ],
         // ),
-        
+
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -629,7 +630,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               Icon(Icons.menu_book_outlined, size: 14, color: Colors.grey[600]),
               const SizedBox(width: 4),
               Text(
-                '${subject['completed']}/${subject['total']} पाठ',
+                '${subject['completed']}/${subject['total']} Lessons',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey[600],
@@ -656,7 +657,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'वर्तमान कार्य',
+          'Current Tasks',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -679,7 +680,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           ),
           child: Center(
             child: Text(
-              'कोई वर्तमान कार्य नहीं',
+              'No current tasks',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -707,10 +708,10 @@ class _StudentDashboardState extends State<StudentDashboard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildBottomNavItem(Icons.menu_book, 'आज का पाठ', true),
-          _buildBottomNavItem(Icons.quiz, 'अभ्यास प्रश्न', false),
-          _buildBottomNavItem(Icons.star_outline, 'पुरस्कार देखें', false),
-          _buildBottomNavItem(Icons.settings, 'सेटिंग', false),
+          _buildBottomNavItem(Icons.menu_book, 'Today\'s Lesson', true),
+          _buildBottomNavItem(Icons.quiz, 'Practice Questions', false),
+          _buildBottomNavItem(Icons.star_outline, 'View Rewards', false),
+          _buildBottomNavItem(Icons.settings, 'Settings', false),
         ],
       ),
     );
@@ -741,7 +742,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
   // Helper method to get custom gradients for each subject
   LinearGradient _getSubjectGradient(String subjectName) {
     switch (subjectName) {
-      case 'हिंदी':
+      case 'Hindi':
         return LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -750,7 +751,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             Colors.red.withOpacity(0.1),
           ],
         );
-      case 'अंग्रेजी':
+      case 'English':
         return LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -759,7 +760,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
             Colors.cyan.withOpacity(0.1),
           ],
         );
-      case 'गणित':
+      case 'Math':
         return LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -784,11 +785,11 @@ class _StudentDashboardState extends State<StudentDashboard> {
   String _getSubjectBackgroundImage(String subjectName) {
     // Using placeholder network images - replace with your local assets later
     switch (subjectName) {
-      case 'हिंदी':
+      case 'Hindi':
         return 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&h=300&fit=crop'; // Books/Literature
-      case 'अंग्रेजी':
+      case 'English':
         return 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&h=300&fit=crop'; // English/Writing
-      case 'गणित':
+      case 'Math':
         return 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=500&h=300&fit=crop'; // Mathematics
       default:
         return 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&h=300&fit=crop'; // Books
@@ -799,28 +800,16 @@ class _StudentDashboardState extends State<StudentDashboard> {
   String _getPreparationBackgroundImage(String subjectName) {
     // Using placeholder network images - replace with your local assets later
     switch (subjectName) {
-      case 'विज्ञान':
+      case 'Science':
         return 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&h=300&fit=crop'; // Science
-      case 'सामाजिक विज्ञान':
+      case 'Social Science':
         return 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=500&h=300&fit=crop'; // Social Studies
-      case 'वाणिज्य':
+      case 'Commerce':
         return 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&h=300&fit=crop'; // Commerce
-      case 'कंप्यूटर':
+      case 'Computer':
         return 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=300&fit=crop'; // Computer
       default:
         return 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=500&h=300&fit=crop'; // Books
     }
-  }
-}
-
-// Mock LoginPage2 class - replace with your actual login page import
-class LoginPage2 extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text('Login Page'),
-      ),
-    );
   }
 }

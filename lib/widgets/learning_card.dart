@@ -89,14 +89,6 @@ class LearningCard extends StatelessWidget {
                         color: AppColors.foreground,
                       ),
                     ),
-                    const SizedBox(height: AppDimensions.xs),
-                    Text(
-                      subject.subjectHindi,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.mutedForeground,
-                      ),
-                    ),
                   ],
                 ),
               ),
