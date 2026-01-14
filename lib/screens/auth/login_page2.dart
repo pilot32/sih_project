@@ -1,6 +1,5 @@
 import 'package:digital_learning_application/screens/homescreen/student_dashboard.dart';
 import 'package:flutter/material.dart';
-//import 'package:digital_learning_application/screens/homescreen/dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -41,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen>
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$userType लॉग इन सफल! / Login successful!'),
+        content: Text('$userType Login successful!'),
         backgroundColor: Colors.green,
       ),
     );
@@ -310,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           elevation: 4,
                                         ),
                                         child: const Text(
-                                          'लॉग इन करें / Login',
+                                          'Login',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
@@ -337,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen>
                                         ),
                                         const SizedBox(width: 3),
                                         const Text(
-                                          'शिक्षक ID / Teacher ID',
+                                          'Teacher ID',
                                           style: TextStyle(fontWeight: FontWeight.w500),
                                         ),
                                       ],
@@ -346,7 +345,7 @@ class _LoginScreenState extends State<LoginScreen>
                                     TextFormField(
                                       controller: _teacherIdController,
                                       decoration: InputDecoration(
-                                        hintText: 'शिक्षक ID डालें',
+                                        hintText: 'Enter Teacher ID',
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(12),
                                         ),
@@ -356,7 +355,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'शिक्षक ID डालें';
+                                          return 'Please enter your phone number';
                                         }
                                         return null;
                                       },
@@ -371,7 +370,7 @@ class _LoginScreenState extends State<LoginScreen>
                                         ),
                                         const SizedBox(width: 8),
                                         const Text(
-                                          'फ़ोन नंबर / Phone Number',
+                                          'Phone Number',
                                           style: TextStyle(fontWeight: FontWeight.w500),
                                         ),
                                       ],
@@ -381,7 +380,7 @@ class _LoginScreenState extends State<LoginScreen>
                                       controller: _teacherPhoneController,
                                       keyboardType: TextInputType.phone,
                                       decoration: InputDecoration(
-                                        hintText: 'अपना फ़ोन नंबर डालें',
+                                        hintText: 'Enter your phone number',
                                         border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(12),
                                         ),
@@ -391,10 +390,10 @@ class _LoginScreenState extends State<LoginScreen>
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'फ़ोन नंबर डालें';
+                                          return 'Please enter your phone number';
                                         }
                                         if (value.length < 10) {
-                                          return 'वैध फ़ोन नंबर डालें';
+                                          return 'Please enter a valid phone number';
                                         }
                                         return null;
                                       },
@@ -414,7 +413,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           elevation: 4,
                                         ),
                                         child: const Text(
-                                          'लॉग इन करें / Login',
+                                          'Login',
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,
@@ -433,7 +432,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                         // Footer
                         Text(
-                          'ऑफ़लाइन मोड उपलब्ध • Offline Mode Available',
+                          'Offline Mode Available',
                           style: TextStyle(
                             fontSize: 12,
                             color: Theme.of(context)

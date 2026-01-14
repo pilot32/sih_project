@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'नाभा डिजिटल शिक्षा',
+      title: 'Nabha Digital Education',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         primaryColor: const Color(0xFF0F4C75),

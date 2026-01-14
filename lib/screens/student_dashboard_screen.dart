@@ -40,7 +40,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     coreSubjects = [
       SubjectModel(
         subject: 'Hindi',
-        subjectHindi: 'Hindi Language',
         progress: 75,
         totalLessons: 20,
         completedLessons: 15,
@@ -54,7 +53,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       SubjectModel(
         subject: 'English',
-        subjectHindi: 'English Language',
         progress: 60,
         totalLessons: 18,
         completedLessons: 11,
@@ -68,7 +66,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       SubjectModel(
         subject: 'Math',
-        subjectHindi: 'Mathematics',
         progress: 45,
         totalLessons: 25,
         completedLessons: 11,
@@ -85,7 +82,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
     higherSubjects = [
       SubjectModel(
         subject: 'Science',
-        subjectHindi: 'Science',
         progress: 0,
         totalLessons: 30,
         completedLessons: 0,
@@ -100,7 +96,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       SubjectModel(
         subject: 'Social Science',
-        subjectHindi: 'Social Science',
         progress: 0,
         totalLessons: 22,
         completedLessons: 0,
@@ -115,7 +110,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       SubjectModel(
         subject: 'Commerce',
-        subjectHindi: 'Commerce',
         progress: 0,
         totalLessons: 18,
         completedLessons: 0,
@@ -130,7 +124,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
       ),
       SubjectModel(
         subject: 'Computer',
-        subjectHindi: 'Computer Basics',
         progress: 0,
         totalLessons: 15,
         completedLessons: 0,
