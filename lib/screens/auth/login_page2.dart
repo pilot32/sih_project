@@ -1,4 +1,5 @@
-import 'package:digital_learning_application/screens/homescreen/student_dashboard.dart';
+
+import 'package:digital_learning_application/core/routes.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -46,12 +47,7 @@ class _LoginScreenState extends State<LoginScreen>
     );
     
     // Navigate to DashboardScreen
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const StudentDashboard(),
-      ),
-    );
+    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
   }
 
   void _handleStudentLogin() {
@@ -208,7 +204,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                         // Tab Content
                         SizedBox(
-                          height: 250,
+                          height: 450,
                           child: TabBarView(
                             controller: _tabController,
                             children: [

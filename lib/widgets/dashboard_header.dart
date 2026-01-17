@@ -52,7 +52,7 @@ class DashboardHeader extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: const DecorationImage(
-              image: AssetImage('assets/images/mascot-owl.png'),
+              image: AssetImage('assets/images/owl_logo.png'),
               fit: BoxFit.cover,
             ),
           ),

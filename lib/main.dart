@@ -1,8 +1,7 @@
 import 'package:digital_learning_application/firebase_options.dart';
-import 'package:digital_learning_application/screens/homescreen/student_dashboard.dart';
-import 'package:digital_learning_application/screens/auth/login_page2.dart';
-import 'package:digital_learning_application/screens/student_dashboard_screen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:digital_learning_application/core/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -27,7 +26,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const StudentDashboardScreen(), // This will now work
+      initialRoute: AppRoutes.login,
+      routes: AppRoutes.getRoutes(),
     );
   }
 }

@@ -155,7 +155,15 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         onLogout: widget.onLogout,
        // mascotImage: 'assets/images/mascot-owl.png',
       ),
-      body: SingleChildScrollView(
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/student_dash_BG.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: ConstrainedBox(
@@ -170,7 +178,7 @@ HeroStatsCard(
   dayStreak: 15, // Corrected from streakDays
   totalStars: 127,
   badgesEarned: 5,
-  backgroundImage: 'assets/images/hero-learning.jpg', // This parameter is now accepted
+  backgroundImage: 'assets/images/hero_learning.jpg', // This parameter is now accepted
 ),
                 
                 const SizedBox(height: 32),
@@ -210,6 +218,8 @@ SubjectsSection(
             ),
           ),
         ),
+          ),
+        ],
       ),
     );
   }
