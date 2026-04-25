@@ -90,11 +90,11 @@ class SubjectsSection extends StatelessWidget {
 
   double _getAspectRatio(double screenWidth) {
     if (screenWidth > 1200) {
-      return 1.2;
+      return 1.6; // Increased from 1.2
     } else if (screenWidth > 600) {
-      return 1.1;
+      return 1.5; // Increased from 1.1
     } else {
-      return 1.0;
+      return 1.4; // Increased from 1.0
     }
   }
 }
