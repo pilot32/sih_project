@@ -1,5 +1,4 @@
 // lib/presentation/screens/student_dashboard_screen.dart
-import 'package:digital_learning_application/widgets/quick_action_button.dart';
 import 'package:flutter/material.dart';
 import '../widgets/dashboard_header.dart';
 import '../widgets/hero_stats_card.dart';
@@ -26,8 +25,8 @@ class StudentDashboardScreen extends StatefulWidget {
 }
 
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
-  late  List<SubjectModel> coreSubjects = [];
-  late  List<SubjectModel> higherSubjects = [];
+  late List<SubjectModel> coreSubjects = [];
+  late List<SubjectModel> higherSubjects = [];
   late final int totalProgress;
 
   @override
@@ -92,7 +91,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.science,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Social Science',
@@ -106,7 +104,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.public,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Commerce',
@@ -120,7 +117,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.attach_money,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Computer',
@@ -134,15 +130,14 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.computer,
-        isLocked: true,
       ),
     ];
 
     // Calculate total progress
-    totalProgress = (coreSubjects.fold<int>(
-      0,
-      (sum, subject) => sum + subject.progress,
-    ) / coreSubjects.length).round();
+    totalProgress =
+        (coreSubjects.fold<int>(0, (sum, subject) => sum + subject.progress) /
+                coreSubjects.length)
+            .round();
   }
 
   @override
@@ -153,7 +148,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
         studentName: widget.studentName,
         onSettings: widget.onSettings,
         onLogout: widget.onLogout,
-       // mascotImage: 'assets/images/mascot-owl.png',
       ),
       body: Stack(
         children: [
@@ -164,60 +158,48 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             ),
           ),
           SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Hero Stats Card
-                // Your StudentDashboardScreen file
-HeroStatsCard(
-  totalProgress: totalProgress,
-  dayStreak: 15, // Corrected from streakDays
-  totalStars: 127,
-  badgesEarned: 5,
-  backgroundImage: 'assets/images/hero_learning.jpg', // This parameter is now accepted
-),
-                
-                const SizedBox(height: 32),
-                
-                // Core Subjects Section
-                SubjectsSection(
-  title: AppStrings.coreSubjects,
-  badgeText: AppStrings.basicCurriculum, // Corrected from `badge`
-  badgeVariant: BadgeVariant.secondary,
-  subjects: coreSubjects,
-  // Removed crossAxisCount, as the widget handles it responsively
-),
-
-const SizedBox(height: 32),
-
-// Higher Education Section
-SubjectsSection(
-  title: AppStrings.higherEducationPrep,
-  badgeText: AppStrings.comingSoon, // Corrected from `badge`
-  badgeVariant: BadgeVariant.outline,
-  subjects: higherSubjects,
-  // Removed crossAxisCount, as the widget handles it responsively
-),
-                
-                const SizedBox(height: 32),
-                
-                // Quick Actions Section
-                QuickActionsSection(
-                  onTodayLesson: _handleTodayLesson,
-                  onPracticeQuestions: _handlePracticeQuestions,
-                  onViewRewards: _handleViewRewards,
-                  onSettings: widget.onSettings,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1200),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeroStatsCard(
+                      totalProgress: totalProgress,
+                      dayStreak: 15,
+                      totalStars: 127,
+                      badgesEarned: 5,
+                      backgroundImage: 'assets/images/hero_learning.jpg',
+                    ),
+                    const SizedBox(height: 32),
+                    SubjectsSection(
+                      title: AppStrings.coreSubjects,
+                      badgeText: AppStrings.basicCurriculum,
+                      badgeVariant: BadgeVariant.secondary,
+                      subjects: coreSubjects,
+                      onSubjectTap: _handleCoreSubjectTap,
+                    ),
+                    const SizedBox(height: 32),
+                    SubjectsSection(
+                      title: AppStrings.higherEducationPrep,
+                      badgeText: AppStrings.availableNow,
+                      badgeVariant: BadgeVariant.outline,
+                      subjects: higherSubjects,
+                      onSubjectTap: _handleHigherSubjectTap,
+                    ),
+                    const SizedBox(height: 32),
+                    QuickActionsSection(
+                      onTodayLesson: _handleTodayLesson,
+                      onPracticeQuestions: _handlePracticeQuestions,
+                      onViewRewards: _handleViewRewards,
+                      onSettings: _handleSettings,
+                    ),
+                    const SizedBox(height: 32),
+                  ],
                 ),
-                
-                const SizedBox(height: 32),
-              ],
+              ),
             ),
-          ),
-        ),
           ),
         ],
       ),
@@ -225,32 +207,88 @@ SubjectsSection(
   }
 
   void _handleTodayLesson() {
-    // Navigate to today's lesson
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Today\'s Lesson...'),
-        duration: Duration(seconds: 2),
-      ),
+    final topSubject = coreSubjects.reduce(
+      (a, b) => a.progress >= b.progress ? a : b,
+    );
+    _showActionDialog(
+      title: 'Continue Learning',
+      icon: Icons.play_circle_outline,
+      message:
+          'Resume ${topSubject.subject}: lesson ${topSubject.completedLessons + 1} of ${topSubject.totalLessons}.',
     );
   }
 
   void _handlePracticeQuestions() {
-    // Navigate to practice questions
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Practice Questions...'),
-        duration: Duration(seconds: 2),
-      ),
+    _showActionDialog(
+      title: 'Practice Mode',
+      icon: Icons.quiz,
+      message: 'Daily practice is ready with 15 mixed questions.',
     );
   }
 
   void _handleViewRewards() {
-    // Navigate to rewards page
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Rewards Page...'),
-        duration: Duration(seconds: 2),
-      ),
+    _showActionDialog(
+      title: 'Your Rewards',
+      icon: Icons.emoji_events_outlined,
+      message: 'You have earned 127 stars and 5 badges so far.',
+    );
+  }
+
+  void _handleSettings() {
+    if (widget.onSettings != null) {
+      widget.onSettings!.call();
+      return;
+    }
+
+    _showActionDialog(
+      title: 'Settings',
+      icon: Icons.settings,
+      message: 'Settings page is not connected yet for this flow.',
+    );
+  }
+
+  void _handleCoreSubjectTap(SubjectModel subject) {
+    _showActionDialog(
+      title: subject.subject,
+      icon: subject.icon,
+      message:
+          'Progress: ${subject.progress}% (${subject.completedLessons}/${subject.totalLessons} lessons).',
+    );
+  }
+
+  void _handleHigherSubjectTap(SubjectModel subject) {
+    _showActionDialog(
+      title: '${subject.subject} Track',
+      icon: subject.icon,
+      message: 'Syllabus preview is available and enrollment opens soon.',
+    );
+  }
+
+  Future<void> _showActionDialog({
+    required String title,
+    required IconData icon,
+    required String message,
+  }) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: 8),
+              Expanded(child: Text(title)),
+            ],
+          ),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

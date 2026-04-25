@@ -15,6 +15,7 @@ class AppStrings {
   static const String higherEducation = 'Higher Education Preparation';
   static const String foundationCourse = 'Foundation Course';
   static const String comingSoon = 'Coming Soon';
+  static const String availableNow = 'Available Now';
   static const String higherEducationPrep = 'Higher Education Prep';
   static const String basicCurriculum = 'Basic Curriculum';
   // Subject Names

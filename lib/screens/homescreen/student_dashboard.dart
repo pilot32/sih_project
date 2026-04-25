@@ -1,6 +1,5 @@
 import 'package:digital_learning_application/screens/auth/login_page2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class StudentDashboard extends StatefulWidget {
   const StudentDashboard({Key? key}) : super(key: key);
@@ -100,8 +99,9 @@ class _StudentDashboardState extends State<StudentDashboard> {
   }
 
   void onSettings() {
-    // Implement settings functionality
-    print("Settings pressed");
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Opening settings...')));
   }
 
   @override
@@ -175,10 +175,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               ),
               Text(
                 'Let\'s learn something new today',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
             ],
           ),
@@ -204,10 +201,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Colors.grey[300]!,
-            Colors.grey[200]!,
-          ],
+          colors: [Colors.grey[300]!, Colors.grey[200]!],
         ),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -259,10 +253,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
             textAlign: TextAlign.center,
           ),
         ],
@@ -333,8 +324,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           fit: BoxFit.cover,
           opacity: 0.3, // Adjust transparency (0.0 to 1.0)
           onError: (exception, stackTrace) {
-            // Fallback if network image fails
-            print('Failed to load image: $exception');
+            debugPrint('Failed to load subject image: $exception');
           },
         ),
 
@@ -358,7 +348,6 @@ class _StudentDashboardState extends State<StudentDashboard> {
 
         // Option 3: Custom gradient per subject
         // gradient: _getSubjectGradient(subject['name']),
-
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -380,11 +369,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                   color: subject['color'].withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  subject['icon'],
-                  color: subject['color'],
-                  size: 20,
-                ),
+                child: Icon(subject['icon'], color: subject['color'], size: 20),
               ),
               const Spacer(),
               Container(
@@ -424,10 +409,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           ),
           Text(
             subject['englishName'],
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 14, color: Colors.grey[600]),
           ),
           const SizedBox(height: 16),
 
@@ -438,10 +420,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               const SizedBox(width: 4),
               Text(
                 '${subject['completed']}/${subject['total']} Lessons',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
               ),
               const Spacer(),
               Text(
@@ -472,10 +451,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               const SizedBox(width: 4),
               Text(
                 'Next Lesson: ${subject['timeSpent']} min',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
               const Spacer(),
               GestureDetector(
@@ -515,14 +491,15 @@ class _StudentDashboardState extends State<StudentDashboard> {
             ),
             TextButton(
               onPressed: () {
-                // Handle view all
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Explore all higher-education tracks'),
+                  ),
+                );
               },
               child: Text(
-                'Coming Soon',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontSize: 14,
-                ),
+                'Explore All',
+                style: TextStyle(color: Colors.grey[600], fontSize: 14),
               ),
             ),
           ],
@@ -557,8 +534,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           fit: BoxFit.cover,
           opacity: 0.2, // Lighter opacity for preparation cards
           onError: (exception, stackTrace) {
-            // Fallback if network image fails
-            print('Failed to load image: $exception');
+            debugPrint('Failed to load preparation image: $exception');
           },
         ),
 
@@ -579,7 +555,6 @@ class _StudentDashboardState extends State<StudentDashboard> {
         //     subject['color'].withOpacity(0.03),
         //   ],
         // ),
-
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -600,11 +575,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
                   color: subject['color'].withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
-                  subject['icon'],
-                  color: subject['color'],
-                  size: 20,
-                ),
+                child: Icon(subject['icon'], color: subject['color'], size: 20),
               ),
             ],
           ),
@@ -619,10 +590,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           ),
           Text(
             subject['englishName'],
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
           const Spacer(),
           Row(
@@ -631,10 +599,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
               const SizedBox(width: 4),
               Text(
                 '${subject['completed']}/${subject['total']} Lessons',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey[600]),
               ),
               const Spacer(),
               Text(
@@ -681,10 +646,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
           child: Center(
             child: Text(
               'No current tasks',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.grey[600]),
             ),
           ),
         ),
@@ -721,11 +683,7 @@ class _StudentDashboardState extends State<StudentDashboard> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          icon,
-          color: isActive ? Colors.blue : Colors.grey[600],
-          size: 24,
-        ),
+        Icon(icon, color: isActive ? Colors.blue : Colors.grey[600], size: 24),
         const SizedBox(height: 4),
         Text(
           label,
@@ -737,48 +695,6 @@ class _StudentDashboardState extends State<StudentDashboard> {
         ),
       ],
     );
-  }
-
-  // Helper method to get custom gradients for each subject
-  LinearGradient _getSubjectGradient(String subjectName) {
-    switch (subjectName) {
-      case 'Hindi':
-        return LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.orange.withOpacity(0.2),
-            Colors.red.withOpacity(0.1),
-          ],
-        );
-      case 'English':
-        return LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.blue.withOpacity(0.2),
-            Colors.cyan.withOpacity(0.1),
-          ],
-        );
-      case 'Math':
-        return LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.green.withOpacity(0.2),
-            Colors.teal.withOpacity(0.1),
-          ],
-        );
-      default:
-        return LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.grey.withOpacity(0.1),
-            Colors.grey.withOpacity(0.05),
-          ],
-        );
-    }
   }
 
   // Helper method to get background images for main subjects
