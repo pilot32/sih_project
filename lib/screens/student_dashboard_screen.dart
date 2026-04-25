@@ -7,6 +7,7 @@ import '../widgets/quick_actions_section.dart';
 import '../widgets/ui/custom_badge.dart';
 import '../../data/models/subject_model.dart';
 import '../../core/constants/app_strings.dart';
+import '../screens/placeholder_screen.dart';
 
 class StudentDashboardScreen extends StatefulWidget {
   final String studentName;
@@ -143,7 +144,7 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: DashboardHeader(
         studentName: widget.studentName,
         onSettings: widget.onSettings,
@@ -178,7 +179,19 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                       badgeText: AppStrings.basicCurriculum,
                       badgeVariant: BadgeVariant.secondary,
                       subjects: coreSubjects,
-                      onSubjectTap: _handleCoreSubjectTap,
+                      onSubjectTap: (subject) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlaceholderScreen(
+                            title: subject.subject,
+                            message: '${subject.subject} lessons and content will be available here.\n\n'
+                                'Progress: ${subject.progress}%\n'
+                                'Lessons: ${subject.completedLessons}/${subject.totalLessons}\n'
+                                'Streak: ${subject.streak} days',
+                            icon: subject.icon,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 32),
                     SubjectsSection(
@@ -186,14 +199,34 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
                       badgeText: AppStrings.availableNow,
                       badgeVariant: BadgeVariant.outline,
                       subjects: higherSubjects,
-                      onSubjectTap: _handleHigherSubjectTap,
+                      onSubjectTap: (subject) {
+                        if (subject.isLocked) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('This subject is locked. Complete core subjects first!')),
+                          );
+                          return;
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaceholderScreen(
+                              title: subject.subject,
+                              message: '${subject.subject} lessons and content will be available here.\n\n'
+                                  'Progress: ${subject.progress}%\n'
+                                  'Lessons: ${subject.completedLessons}/${subject.totalLessons}\n'
+                                  'Streak: ${subject.streak} days',
+                              icon: subject.icon,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 32),
                     QuickActionsSection(
                       onTodayLesson: _handleTodayLesson,
                       onPracticeQuestions: _handlePracticeQuestions,
                       onViewRewards: _handleViewRewards,
-                      onSettings: _handleSettings,
+                      onSettings: () => Navigator.pushNamed(context, '/settings'),
                     ),
                     const SizedBox(height: 32),
                   ],
@@ -207,88 +240,42 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
   }
 
   void _handleTodayLesson() {
-    final topSubject = coreSubjects.reduce(
-      (a, b) => a.progress >= b.progress ? a : b,
-    );
-    _showActionDialog(
-      title: 'Continue Learning',
-      icon: Icons.play_circle_outline,
-      message:
-          'Resume ${topSubject.subject}: lesson ${topSubject.completedLessons + 1} of ${topSubject.totalLessons}.',
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: "Today's Lesson",
+          message: "Your personalized daily lesson will appear here. Feature coming soon!",
+          icon: Icons.menu_book,
+        ),
+      ),
     );
   }
 
   void _handlePracticeQuestions() {
-    _showActionDialog(
-      title: 'Practice Mode',
-      icon: Icons.quiz,
-      message: 'Daily practice is ready with 15 mixed questions.',
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: 'Practice Questions',
+          message: 'Practice questions and quizzes will be available here soon.',
+          icon: Icons.quiz,
+        ),
+      ),
     );
   }
 
   void _handleViewRewards() {
-    _showActionDialog(
-      title: 'Your Rewards',
-      icon: Icons.emoji_events_outlined,
-      message: 'You have earned 127 stars and 5 badges so far.',
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: 'Rewards',
+          message: 'Your earned badges, stars, and achievements will be displayed here.',
+          icon: Icons.emoji_events,
+        ),
+      ),
     );
   }
 
-  void _handleSettings() {
-    if (widget.onSettings != null) {
-      widget.onSettings!.call();
-      return;
-    }
-
-    _showActionDialog(
-      title: 'Settings',
-      icon: Icons.settings,
-      message: 'Settings page is not connected yet for this flow.',
-    );
-  }
-
-  void _handleCoreSubjectTap(SubjectModel subject) {
-    _showActionDialog(
-      title: subject.subject,
-      icon: subject.icon,
-      message:
-          'Progress: ${subject.progress}% (${subject.completedLessons}/${subject.totalLessons} lessons).',
-    );
-  }
-
-  void _handleHigherSubjectTap(SubjectModel subject) {
-    _showActionDialog(
-      title: '${subject.subject} Track',
-      icon: subject.icon,
-      message: 'Syllabus preview is available and enrollment opens soon.',
-    );
-  }
-
-  Future<void> _showActionDialog({
-    required String title,
-    required IconData icon,
-    required String message,
-  }) {
-    return showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Icon(icon),
-              const SizedBox(width: 8),
-              Expanded(child: Text(title)),
-            ],
-          ),
-          content: Text(message),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
