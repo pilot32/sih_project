@@ -1,5 +1,4 @@
 // lib/presentation/screens/student_dashboard_screen.dart
-import 'package:digital_learning_application/widgets/quick_action_button.dart';
 import 'package:flutter/material.dart';
 import '../widgets/dashboard_header.dart';
 import '../widgets/hero_stats_card.dart';
@@ -8,6 +7,7 @@ import '../widgets/quick_actions_section.dart';
 import '../widgets/ui/custom_badge.dart';
 import '../../data/models/subject_model.dart';
 import '../../core/constants/app_strings.dart';
+import '../screens/placeholder_screen.dart';
 
 class StudentDashboardScreen extends StatefulWidget {
   final String studentName;
@@ -26,8 +26,8 @@ class StudentDashboardScreen extends StatefulWidget {
 }
 
 class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
-  late  List<SubjectModel> coreSubjects = [];
-  late  List<SubjectModel> higherSubjects = [];
+  late List<SubjectModel> coreSubjects = [];
+  late List<SubjectModel> higherSubjects = [];
   late final int totalProgress;
 
   @override
@@ -92,7 +92,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.science,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Social Science',
@@ -106,7 +105,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.public,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Commerce',
@@ -120,7 +118,6 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.attach_money,
-        isLocked: true,
       ),
       SubjectModel(
         subject: 'Computer',
@@ -134,26 +131,24 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
           end: Alignment.bottomRight,
         ),
         icon: Icons.computer,
-        isLocked: true,
       ),
     ];
 
     // Calculate total progress
-    totalProgress = (coreSubjects.fold<int>(
-      0,
-      (sum, subject) => sum + subject.progress,
-    ) / coreSubjects.length).round();
+    totalProgress =
+        (coreSubjects.fold<int>(0, (sum, subject) => sum + subject.progress) /
+                coreSubjects.length)
+            .round();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: DashboardHeader(
         studentName: widget.studentName,
         onSettings: widget.onSettings,
         onLogout: widget.onLogout,
-       // mascotImage: 'assets/images/mascot-owl.png',
       ),
       body: Stack(
         children: [
@@ -164,60 +159,80 @@ class _StudentDashboardScreenState extends State<StudentDashboardScreen> {
             ),
           ),
           SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Hero Stats Card
-                // Your StudentDashboardScreen file
-HeroStatsCard(
-  totalProgress: totalProgress,
-  dayStreak: 15, // Corrected from streakDays
-  totalStars: 127,
-  badgesEarned: 5,
-  backgroundImage: 'assets/images/hero_learning.jpg', // This parameter is now accepted
-),
-                
-                const SizedBox(height: 32),
-                
-                // Core Subjects Section
-                SubjectsSection(
-  title: AppStrings.coreSubjects,
-  badgeText: AppStrings.basicCurriculum, // Corrected from `badge`
-  badgeVariant: BadgeVariant.secondary,
-  subjects: coreSubjects,
-  // Removed crossAxisCount, as the widget handles it responsively
-),
-
-const SizedBox(height: 32),
-
-// Higher Education Section
-SubjectsSection(
-  title: AppStrings.higherEducationPrep,
-  badgeText: AppStrings.comingSoon, // Corrected from `badge`
-  badgeVariant: BadgeVariant.outline,
-  subjects: higherSubjects,
-  // Removed crossAxisCount, as the widget handles it responsively
-),
-                
-                const SizedBox(height: 32),
-                
-                // Quick Actions Section
-                QuickActionsSection(
-                  onTodayLesson: _handleTodayLesson,
-                  onPracticeQuestions: _handlePracticeQuestions,
-                  onViewRewards: _handleViewRewards,
-                  onSettings: widget.onSettings,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 1200),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeroStatsCard(
+                      totalProgress: totalProgress,
+                      dayStreak: 15,
+                      totalStars: 127,
+                      badgesEarned: 5,
+                      backgroundImage: 'assets/images/hero_learning.jpg',
+                    ),
+                    const SizedBox(height: 32),
+                    SubjectsSection(
+                      title: AppStrings.coreSubjects,
+                      badgeText: AppStrings.basicCurriculum,
+                      badgeVariant: BadgeVariant.secondary,
+                      subjects: coreSubjects,
+                      onSubjectTap: (subject) => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlaceholderScreen(
+                            title: subject.subject,
+                            message: '${subject.subject} lessons and content will be available here.\n\n'
+                                'Progress: ${subject.progress}%\n'
+                                'Lessons: ${subject.completedLessons}/${subject.totalLessons}\n'
+                                'Streak: ${subject.streak} days',
+                            icon: subject.icon,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    SubjectsSection(
+                      title: AppStrings.higherEducationPrep,
+                      badgeText: AppStrings.availableNow,
+                      badgeVariant: BadgeVariant.outline,
+                      subjects: higherSubjects,
+                      onSubjectTap: (subject) {
+                        if (subject.isLocked) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('This subject is locked. Complete core subjects first!')),
+                          );
+                          return;
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaceholderScreen(
+                              title: subject.subject,
+                              message: '${subject.subject} lessons and content will be available here.\n\n'
+                                  'Progress: ${subject.progress}%\n'
+                                  'Lessons: ${subject.completedLessons}/${subject.totalLessons}\n'
+                                  'Streak: ${subject.streak} days',
+                              icon: subject.icon,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 32),
+                    QuickActionsSection(
+                      onTodayLesson: _handleTodayLesson,
+                      onPracticeQuestions: _handlePracticeQuestions,
+                      onViewRewards: _handleViewRewards,
+                      onSettings: () => Navigator.pushNamed(context, '/settings'),
+                    ),
+                    const SizedBox(height: 32),
+                  ],
                 ),
-                
-                const SizedBox(height: 32),
-              ],
+              ),
             ),
-          ),
-        ),
           ),
         ],
       ),
@@ -225,32 +240,42 @@ SubjectsSection(
   }
 
   void _handleTodayLesson() {
-    // Navigate to today's lesson
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Today\'s Lesson...'),
-        duration: Duration(seconds: 2),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: "Today's Lesson",
+          message: "Your personalized daily lesson will appear here. Feature coming soon!",
+          icon: Icons.menu_book,
+        ),
       ),
     );
   }
 
   void _handlePracticeQuestions() {
-    // Navigate to practice questions
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Practice Questions...'),
-        duration: Duration(seconds: 2),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: 'Practice Questions',
+          message: 'Practice questions and quizzes will be available here soon.',
+          icon: Icons.quiz,
+        ),
       ),
     );
   }
 
   void _handleViewRewards() {
-    // Navigate to rewards page
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Opening Rewards Page...'),
-        duration: Duration(seconds: 2),
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const PlaceholderScreen(
+          title: 'Rewards',
+          message: 'Your earned badges, stars, and achievements will be displayed here.',
+          icon: Icons.emoji_events,
+        ),
       ),
     );
   }
+
 }

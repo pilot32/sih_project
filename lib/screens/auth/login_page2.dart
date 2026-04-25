@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen>
     super.dispose();
   }
 
-  void _handleLogin(String userType) {
+  void _handleLogin(String userType, [String? userName]) {
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -47,18 +47,32 @@ class _LoginScreenState extends State<LoginScreen>
     );
     
     // Navigate to DashboardScreen
-    Navigator.pushReplacementNamed(context, AppRoutes.dashboard);
+    Navigator.pushReplacementNamed(
+      context, 
+      AppRoutes.dashboard,
+      arguments: userName ?? 'Student',
+    );
   }
 
   void _handleStudentLogin() {
     if (_studentFormKey.currentState!.validate()) {
-      _handleLogin('student');
+      _handleLogin('Student', _studentNameController.text.trim());
     }
   }
 
   void _handleTeacherLogin() {
     if (_teacherFormKey.currentState!.validate()) {
-      _handleLogin('teacher');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Teacher Login successful!'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      Navigator.pushReplacementNamed(
+        context,
+        AppRoutes.teacherDashboard,
+        arguments: _teacherIdController.text.trim(),
+      );
     }
   }
 
@@ -163,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen>
                         // Tabs
                         Container(
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.surfaceVariant,
+                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: TabBar(
@@ -175,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen>
                             indicatorSize: TabBarIndicatorSize.tab,
                             labelColor: Colors.white,
                             unselectedLabelColor:
-                                Theme.of(context).colorScheme.onSurfaceVariant,
+                                Theme.of(context).colorScheme.onSurface,
                             tabs: const [
                               Tab(
                                 child: Row(
@@ -239,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                         filled: true,
-                                        fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
                                         prefixIcon: const Icon(Icons.person),
                                       ),
                                       validator: (value) {
@@ -277,7 +291,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                         filled: true,
-                                        fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
                                         prefixIcon: const Icon(Icons.phone),
                                       ),
                                       validator: (value) {
@@ -346,12 +360,12 @@ class _LoginScreenState extends State<LoginScreen>
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                         filled: true,
-                                        fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
                                         prefixIcon: const Icon(Icons.badge),
                                       ),
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
-                                          return 'Please enter your phone number';
+                                          return 'Please enter your Teacher ID';
                                         }
                                         return null;
                                       },
@@ -381,7 +395,7 @@ class _LoginScreenState extends State<LoginScreen>
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                         filled: true,
-                                        fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                                        fillColor: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.3),
                                         prefixIcon: const Icon(Icons.phone),
                                       ),
                                       validator: (value) {
